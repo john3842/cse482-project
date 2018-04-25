@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>classification_normalized</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>classification</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11771,9 +11771,18 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> IMPORT FEATURE VECTORS </strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
@@ -11795,7 +11804,7 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[1]:</div>
+<div class="prompt output_prompt">Out[112]:</div>
 
 
 
@@ -11976,7 +11985,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_vector</span><span class="o">.</span><span class="n">columns</span>
@@ -11992,7 +12001,7 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[2]:</div>
+<div class="prompt output_prompt">Out[113]:</div>
 
 
 
@@ -12020,127 +12029,18 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">feature_vector</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">colList</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;WINNER&#39;</span><span class="p">)</span>
-
-<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">feature_vector</span><span class="p">[</span><span class="n">colList</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
-
-<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">corr_matrix</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">)</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">corr_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">y</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">indices</span><span class="p">)</span>
-                                        <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">]</span>
-
-<span class="n">correlated</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">item1</span> <span class="ow">in</span> <span class="n">correlated</span><span class="p">:</span>
-        <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">correlated</span><span class="p">:</span>
-        <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="n">correlated</span><span class="p">[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-
-<span class="n">col_corr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]:</span>
-        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]:</span>
-        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item2</span><span class="p">)</span>
-
-<span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;WINNER&#39;</span><span class="p">)</span>
-
-<span class="n">col_corr_copy</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">:</span>
-    <span class="n">col_corr_copy</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr_copy</span><span class="p">:</span>
-    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">col0</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_0&#39;</span>
-    <span class="n">col1</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_1&#39;</span>
-    <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col0</span><span class="p">)</span>
-    <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col1</span><span class="p">)</span>
-
-<span class="n">col_corr</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[3]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;AST_RATIO_0&#39;,
- &#39;AST_RATIO_1&#39;,
- &#39;EFG_PCT_0&#39;,
- &#39;EFG_PCT_1&#39;,
- &#39;FG_PCT_0&#39;,
- &#39;FG_PCT_1&#39;,
- &#39;NET_RATING_0&#39;,
- &#39;NET_RATING_1&#39;,
- &#39;OFF_RATING_0&#39;,
- &#39;OFF_RATING_1&#39;,
- &#39;OREB_PCT_0&#39;,
- &#39;OREB_PCT_1&#39;,
- &#39;PIE_0&#39;,
- &#39;PIE_1&#39;,
- &#39;PLUS_MINUS_0&#39;,
- &#39;PLUS_MINUS_1&#39;,
- &#39;PTS_0&#39;,
- &#39;PTS_1&#39;,
- &#39;REB_0&#39;,
- &#39;REB_1&#39;,
- &#39;TM_TOV_PCT_0&#39;,
- &#39;TM_TOV_PCT_1&#39;,
- &#39;WINNER&#39;,
- &#39;WINN_0&#39;,
- &#39;WINN_1&#39;}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>col_corr = set() # Set of all the names of deleted columns
-corr_matrix = feature_vector.corr()</p>
-<p>threshold = 0.8</p>
-<p>for i in range(len(corr_matrix.columns)):
-    for j in range(i):
-        if corr_matrix.iloc[i, j] &gt;= threshold:
-            colname = corr_matrix.columns[i] # getting the name of column
-            col_corr.add(colname)
-col_corr.add('WINNER')
-col_corr</p>
+<p><strong> NORMALIZE FEATURE VECTORS </strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fv_float</span> <span class="o">=</span> <span class="n">feature_vector</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">])</span>
@@ -12162,7 +12062,7 @@ col_corr</p>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="prompt output_prompt">Out[114]:</div>
 
 
 
@@ -12341,31 +12241,28 @@ col_corr</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> SPLIT INTO TRAINING AND TESTING SETS </strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">include_arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FGM_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FGA_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FGA_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M_0&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;FG3M_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM_0&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;FTM_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA_1&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;OREB_0&#39;</span><span class="p">,</span> <span class="s1">&#39;OREB_1&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;DREB_0&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB_1&#39;</span><span class="p">,</span> <span class="s1">&#39;AST_0&#39;</span><span class="p">,</span> <span class="s1">&#39;AST_1&#39;</span><span class="p">,</span> <span class="s1">&#39;STL_0&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;STL_1&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK_0&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK_1&#39;</span><span class="p">,</span> <span class="s1">&#39;TO_0&#39;</span><span class="p">,</span> <span class="s1">&#39;TO_1&#39;</span><span class="p">,</span> <span class="s1">&#39;PF_0&#39;</span><span class="p">,</span> <span class="s1">&#39;PF_1&#39;</span><span class="p">,</span> 
-       <span class="s1">&#39;DEF_RATING_0&#39;</span><span class="p">,</span> <span class="s1">&#39;DEF_RATING_1&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;AST_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;AST_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;AST_TOV_0&#39;</span><span class="p">,</span> <span class="s1">&#39;AST_TOV_1&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB_PCT_1&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;REB_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;REB_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;TS_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;TS_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;USG_PCT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;USG_PCT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;PACE_0&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;PACE_1&#39;</span><span class="p">,</span> <span class="s1">&#39;HOME_0&#39;</span><span class="p">,</span> <span class="s1">&#39;HOME_1&#39;</span><span class="p">,</span> <span class="s1">&#39;WIN_PCT_0&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;WIN_PCT_1&#39;</span><span class="p">]</span>
-
-<span class="c1">#X = fv_norm[[col for col in fv_norm.columns if col in include_arr]]</span>
+<span class="n">col_corr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;WINNER&#39;</span><span class="p">}</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">fv_norm</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">]]</span>
-<span class="c1">#X = fv_norm[[col for col in fv_norm.columns if col not in correlated or correlated[col] &lt;= 3]]</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]]</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12373,9 +12270,18 @@ col_corr</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> RUN DIFFERENT CLASSIFIERS ON THE DATA </strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -12391,7 +12297,346 @@ col_corr</p>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">maxdepths</span><span class="p">:</span>
     <span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">scores</span> <span class="p">)</span>
+
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>   <span class="c1"># train on entire training set</span>
+    <span class="n">Y_predTest</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">testAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">Y_predTest</span> <span class="p">)</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">bestHyperparam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">validationAcc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best hyperparameter, maxdepth =&#39;</span><span class="p">,</span> <span class="n">maxdepths</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">testAcc</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Best hyperparameter, maxdepth = 3
+Test Accuracy = 0.6042
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">Cs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">logistic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">class_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span> <span class="n">X_test</span> <span class="p">)</span>
+<span class="n">train_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span> <span class="n">X_train</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">train_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">class_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selected C = </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">logistic</span><span class="o">.</span><span class="n">C_</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train Accuracy = 0.6915
+Test Accuracy = 0.6451
+Selected C = 0.05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">numNeighbors</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span> <span class="p">]</span>
+<span class="n">validationAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numNeighbors</span><span class="p">))</span>
+<span class="n">testAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numNeighbors</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">numNeighbors</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn</span> <span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span> <span class="p">)</span>
+    <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="n">Y_predTest</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">testAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">Y_predTest</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+<span class="n">bestHyperparam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">validationAcc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best hyperparameter, k =&#39;</span><span class="p">,</span> <span class="n">numNeighbors</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">testAcc</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Best hyperparameter, k = 25
+Test Accuracy = 0.6124
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">ensemble</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">numEstimators</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">numEstimators</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">class_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">train_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">train_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">class_pred</span> <span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train Accuracy = 1.0000
+Test Accuracy = 0.6415
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> PERFORM A CORRELATION ANALYSIS ON THE DATA </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">feature_vector</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">colList</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;WINNER&#39;</span><span class="p">)</span>
+
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[</span><span class="n">colList</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">corr_matrix</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">corr_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">y</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">indices</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">]</span>
+
+<span class="n">correlated</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">item1</span> <span class="ow">in</span> <span class="n">correlated</span><span class="p">:</span>
+        <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">correlated</span><span class="p">:</span>
+        <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">correlated</span><span class="p">[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">col_corr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]:</span>
+        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">correlated</span><span class="p">[</span><span class="n">item2</span><span class="p">]:</span>
+        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item2</span><span class="p">)</span>
+
+<span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;WINNER&#39;</span><span class="p">)</span>
+
+<span class="n">col_corr_copy</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">:</span>
+    <span class="n">col_corr_copy</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr_copy</span><span class="p">:</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">col0</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_0&#39;</span>
+    <span class="n">col1</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_1&#39;</span>
+    <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col0</span><span class="p">)</span>
+    <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col1</span><span class="p">)</span>
+
+<span class="n">col_corr</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[120]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;AST_RATIO_0&#39;,
+ &#39;AST_RATIO_1&#39;,
+ &#39;EFG_PCT_0&#39;,
+ &#39;EFG_PCT_1&#39;,
+ &#39;FG_PCT_0&#39;,
+ &#39;FG_PCT_1&#39;,
+ &#39;NET_RATING_0&#39;,
+ &#39;NET_RATING_1&#39;,
+ &#39;OFF_RATING_0&#39;,
+ &#39;OFF_RATING_1&#39;,
+ &#39;OREB_PCT_0&#39;,
+ &#39;OREB_PCT_1&#39;,
+ &#39;PIE_0&#39;,
+ &#39;PIE_1&#39;,
+ &#39;PLUS_MINUS_0&#39;,
+ &#39;PLUS_MINUS_1&#39;,
+ &#39;PTS_0&#39;,
+ &#39;PTS_1&#39;,
+ &#39;REB_0&#39;,
+ &#39;REB_1&#39;,
+ &#39;TM_TOV_PCT_0&#39;,
+ &#39;TM_TOV_PCT_1&#39;,
+ &#39;WINNER&#39;,
+ &#39;WINN_0&#39;,
+ &#39;WINN_1&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> RE-SPLIT THE DATA INTO TRAINING AND TESTING SETS </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">fv_norm</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">]]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> RE-RUN THE CLASSIFIERS </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">maxdepths</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span> <span class="p">]</span>
+<span class="n">validationAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maxdepths</span><span class="p">))</span>
+<span class="n">testAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maxdepths</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">maxdepths</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">scores</span> <span class="p">)</span>
 
     <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>   <span class="c1"># train on entire training set</span>
@@ -12430,7 +12675,7 @@ Test Accuracy = 0.5978
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
@@ -12473,7 +12718,7 @@ Selected C = 0.50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
@@ -12487,7 +12732,7 @@ Selected C = 0.50
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">numNeighbors</span><span class="p">:</span>
     <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn</span> <span class="p">)</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span> <span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span> <span class="p">)</span>
     <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
     <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
     <span class="n">Y_predTest</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -12513,8 +12758,8 @@ Selected C = 0.50
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Best hyperparameter, k = 30
-Test Accuracy = 0.5996
+<pre>Best hyperparameter, k = 25
+Test Accuracy = 0.5969
 </pre>
 </div>
 </div>
@@ -12525,7 +12770,7 @@ Test Accuracy = 0.5996
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">ensemble</span>
@@ -12566,28 +12811,190 @@ Test Accuracy = 0.6415
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> ANALYSIS OF MOST IMPORTANT FEATURES </strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[127]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_home_pred</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">test_home_pred</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+<span class="n">accuracy_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;HOME_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]:</span>
-        <span class="n">train_home_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">train_home_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">fv_norm</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_acc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">accuracy_dict</span> <span class="ow">and</span> <span class="n">column</span> <span class="o">!=</span> <span class="s1">&#39;WINN&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fv_norm</span><span class="p">[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">y_acc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fv_norm</span><span class="p">[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">fv_norm</span><span class="p">[</span><span class="n">column</span><span class="o">+</span><span class="s1">&#39;_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">fv_norm</span><span class="p">[</span><span class="n">column</span><span class="o">+</span><span class="s1">&#39;_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;HOME_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]:</span>
-        <span class="n">test_home_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">test_home_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">train_home_pred</span> <span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">test_home_pred</span> <span class="p">))</span>
+        <span class="n">accuracy_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">y_acc</span><span class="p">,</span> <span class="n">pred</span> <span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> RE-SPLIT THE DATA INTO TRAINING AND TESTING SETS </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">col_corr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">accuracy_dict</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">accuracy_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.58</span> <span class="ow">or</span> <span class="n">accuracy_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.48</span><span class="p">:</span>
+        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;WINNER&#39;</span><span class="p">)</span>
+
+<span class="n">col_corr_copy</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">:</span>
+    <span class="n">col_corr_copy</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+<span class="n">col_corr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr_copy</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s1">&#39;WINNER&#39;</span><span class="p">:</span>
+        <span class="n">col0</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_0&#39;</span>
+        <span class="n">col1</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_1&#39;</span>
+        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col0</span><span class="p">)</span>
+        <span class="n">col_corr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col1</span><span class="p">)</span>
+
+<span class="n">col_corr</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[128]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;DEF_RATING_0&#39;,
+ &#39;DEF_RATING_1&#39;,
+ &#39;EFG_PCT_0&#39;,
+ &#39;EFG_PCT_1&#39;,
+ &#39;FG3_PCT_0&#39;,
+ &#39;FG3_PCT_1&#39;,
+ &#39;HOME_0&#39;,
+ &#39;HOME_1&#39;,
+ &#39;NET_RATING_0&#39;,
+ &#39;NET_RATING_1&#39;,
+ &#39;OFF_RATING_0&#39;,
+ &#39;OFF_RATING_1&#39;,
+ &#39;OREB_0&#39;,
+ &#39;OREB_1&#39;,
+ &#39;PF_0&#39;,
+ &#39;PF_1&#39;,
+ &#39;PIE_0&#39;,
+ &#39;PIE_1&#39;,
+ &#39;PLUS_MINUS_0&#39;,
+ &#39;PLUS_MINUS_1&#39;,
+ &#39;TM_TOV_PCT_0&#39;,
+ &#39;TM_TOV_PCT_1&#39;,
+ &#39;TO_0&#39;,
+ &#39;TO_1&#39;,
+ &#39;TS_PCT_0&#39;,
+ &#39;TS_PCT_1&#39;,
+ &#39;WIN_PCT_0&#39;,
+ &#39;WIN_PCT_1&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[129]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">fv_norm</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_corr</span><span class="p">]]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">fv_norm</span><span class="p">[[</span><span class="s1">&#39;WINNER&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> RE-RUN THE CLASSIFIERS </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">maxdepths</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span> <span class="p">]</span>
+<span class="n">validationAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maxdepths</span><span class="p">))</span>
+<span class="n">testAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maxdepths</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">maxdepths</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">scores</span> <span class="p">)</span>
+
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>   <span class="c1"># train on entire training set</span>
+    <span class="n">Y_predTest</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">testAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">Y_predTest</span> <span class="p">)</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">bestHyperparam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">validationAcc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best hyperparameter, maxdepth =&#39;</span><span class="p">,</span> <span class="n">maxdepths</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">testAcc</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -12604,8 +13011,217 @@ Test Accuracy = 0.6415
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Train Accuracy = 0.5778
-Test Accuracy = 0.5924
+<pre>Best hyperparameter, maxdepth = 3
+Test Accuracy = 0.6005
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">Cs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">logistic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">class_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span> <span class="n">X_test</span> <span class="p">)</span>
+<span class="n">train_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span> <span class="n">X_train</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">train_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">class_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selected C = </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">logistic</span><span class="o">.</span><span class="n">C_</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train Accuracy = 0.6815
+Test Accuracy = 0.6278
+Selected C = 0.50
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[132]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">numNeighbors</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span> <span class="p">]</span>
+<span class="n">validationAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numNeighbors</span><span class="p">))</span>
+<span class="n">testAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numNeighbors</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">numNeighbors</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn</span> <span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span> <span class="p">)</span>
+    <span class="n">validationAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="n">Y_predTest</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">testAcc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">Y_predTest</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+<span class="n">bestHyperparam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">validationAcc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best hyperparameter, k =&#39;</span><span class="p">,</span> <span class="n">numNeighbors</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">testAcc</span><span class="p">[</span><span class="n">bestHyperparam</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Best hyperparameter, k = 25
+Test Accuracy = 0.6442
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">ensemble</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">numEstimators</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">numEstimators</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">class_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">train_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">train_pred</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Accuracy = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">class_pred</span> <span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train Accuracy = 1.0000
+Test Accuracy = 0.6333
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> BASE MODELS</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[134]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Base Accuracy (Home Team) = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_dict</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Base Accuracy (Home Team) = 0.5851
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[135]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Base Accuracy (Higher Winning Percentage) = </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_dict</span><span class="p">[</span><span class="s1">&#39;WIN_PCT&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Base Accuracy (Higher Winning Percentage) = 0.6242
 </pre>
 </div>
 </div>
